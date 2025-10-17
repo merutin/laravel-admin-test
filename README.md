@@ -59,6 +59,14 @@ Seed the initial admin data:
 php artisan db:seed --class=Encore\\Admin\\Auth\\Database\\AdminTablesSeeder
 ```
 
+Laravel-adminのアセットをパブリッシュします。
+
+Publish the laravel-admin assets:
+
+```bash
+php artisan vendor:publish --provider="Encore\Admin\AdminServiceProvider"
+```
+
 ## 使用方法 / Usage
 
 ### 開発サーバーの起動 / Start Development Server
