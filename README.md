@@ -1,66 +1,110 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel 10 + Laravel-Admin Test Project
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+このプロジェクトは、Laravel 10とlaravel-adminパッケージをセットアップしたテストプロジェクトです。
 
-## About Laravel
+This project is a test setup of Laravel 10 with the laravel-admin package.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+![Laravel-Admin Dashboard](https://github.com/user-attachments/assets/2b9b4a31-19c3-4559-bbc1-af8a1f1c0a49)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 環境 / Environment
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP 8.1以上 / PHP 8.1 or higher
+- Composer 2.x
+- SQLite (デフォルトのデータベース / Default database)
 
-## Learning Laravel
+## インストール / Installation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 必要なパッケージのインストール / Install Dependencies
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```bash
+composer install
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 環境設定 / Environment Configuration
 
-## Laravel Sponsors
+`.env.example`を`.env`にコピーして、アプリケーションキーを生成します。
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Copy `.env.example` to `.env` and generate application key:
 
-### Premium Partners
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### データベースのセットアップ / Database Setup
 
-## Contributing
+SQLiteデータベースファイルを作成します。
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Create SQLite database file:
 
-## Code of Conduct
+```bash
+touch database/database.sqlite
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+マイグレーションを実行します。
 
-## Security Vulnerabilities
+Run migrations:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+php artisan migrate
+```
 
-## License
+### Laravel-Adminのセットアップ / Laravel-Admin Setup
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Laravel-adminの初期データをシードします。
+
+Seed the initial admin data:
+
+```bash
+php artisan db:seed --class=Encore\\Admin\\Auth\\Database\\AdminTablesSeeder
+```
+
+## 使用方法 / Usage
+
+### 開発サーバーの起動 / Start Development Server
+
+```bash
+php artisan serve
+```
+
+### 管理画面へのアクセス / Access Admin Panel
+
+ブラウザで以下のURLにアクセスしてください。
+
+Open your browser and navigate to:
+
+```
+http://localhost:8000/admin
+```
+
+### デフォルトのログイン情報 / Default Login Credentials
+
+- **ユーザー名 / Username**: `admin`
+- **パスワード / Password**: `admin`
+
+## インストール済みパッケージ / Installed Packages
+
+- **Laravel Framework**: 10.49.1
+- **Laravel-Admin**: 1.8.19
+
+## テストの実行 / Running Tests
+
+```bash
+php artisan test
+```
+
+## セキュリティについて / Security Note
+
+⚠️ **重要**: このプロジェクトはテスト/学習目的です。laravel-admin 1.8.19には既知のセキュリティ脆弱性(CVE-2023-24249)があります。本番環境での使用は推奨されません。
+
+⚠️ **Important**: This project is for testing/learning purposes only. laravel-admin 1.8.19 has a known security vulnerability (CVE-2023-24249). It is not recommended for production use.
+
+## Laravel-Adminについて / About Laravel-Admin
+
+Laravel-adminは、Laravelフレームワーク用の管理パネルビルダーです。データベースのCRUD操作を簡単に行えるインターフェースを提供します。
+
+Laravel-admin is an admin panel builder for Laravel framework. It provides an easy-to-use interface for database CRUD operations.
+
+- [GitHub](https://github.com/z-song/laravel-admin)
+- [Documentation](http://laravel-admin.org/docs)
+- [Demo](http://laravel-admin.org/demo)
